@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidhyan Jha | Flaming - Full-Stack Developer</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="stars"></div>
+        <div class="particles"></div>
+        <div class="grid"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Flaming<span class="neon-text">.</span></div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button class="theme-btn" id="themeBtn"><i class="fas fa-moon"></i></button>
+                <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Mobile -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="word">Building</span>
+                        <span class="word">the</span>
+                        <span class="word neon">Future</span>
+                    </h1>
+                    <p class="hero-subtitle">Full-Stack Developer | B.E. IT Student | Tech Innovator</p>
+                    <p class="hero-desc">Crafting Efficient and Dynamic Web Experiences</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" data-ripple>Let's Work Together</button>
+                        <button class="btn btn-secondary" data-ripple>View My Work</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <canvas id="threeDCanvas" class="hero-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <span>Scroll to explore</span>
+                <div class="scroll-arrow"><i class="fas fa-chevron-down"></i></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about">
+            <div class="container">
+                <h2 class="section-title">About <span class="neon-text">Me</span></h2>
+                <div class="about-content">
+                    <div class="about-card card-glass">
+                        <div class="card-icon"><i class="fas fa-user-astronaut"></i></div>
+                        <h3>Who I Am</h3>
+                        <p>I'm Vidhyan Jha, a 3rd-year B.E. (Information Technology) student and aspiring Full-Stack Developer passionate about creating efficient and dynamic web experiences.</p>
+                    </div>
+                    <div class="about-card card-glass">
+                        <div class="card-icon"><i class="fas fa-rocket"></i></div>
+                        <h3>What I Do</h3>
+                        <p>Full-stack web development with Django, React, JavaScript, and modern databases. I build scalable e-commerce solutions, appointment systems, and dynamic web applications.</p>
+                    </div>
+                    <div class="about-card card-glass">
+                        <div class="card-icon"><i class="fas fa-star"></i></div>
+                        <h3>My Vision</h3>
+                        <p>Creating efficient digital solutions that matter. Every project is built with precision, scalability, and user experience in mind. Turning ideas into reality through code.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section services">
+            <div class="container">
+                <h2 class="section-title">Services <span class="neon-text">&</span> Skills</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon gradient-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                        <h3>Web Design</h3>
+                        <p>Modern & responsive designs that capture attention and drive engagement</p>
+                        <div class="service-tech">UI/UX • Prototyping</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon gradient-icon"><i class="fas fa-code"></i></div>
+                        <h3>Web Development</h3>
+                        <p>Full-stack solutions with modern frameworks and best practices</p>
+                        <div class="service-tech">React • Django • JavaScript</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon gradient-icon"><i class="fas fa-database"></i></div>
+                        <h3>Backend Solutions</h3>
+                        <p>Scalable, secure and efficient server-side applications</p>
+                        <div class="service-tech">Django • MongoDB • MySQL</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon gradient-icon"><i class="fas fa-mobile"></i></div>
+                        <h3>Mobile Apps</h3>
+                        <p>Cross-platform mobile applications with native performance</p>
+                        <div class="service-tech">React Native • Flutter</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon gradient-icon"><i class="fas fa-paint-brush"></i></div>
+                        <h3>Brand Design</h3>
+                        <p>Complete brand identity and visual systems</p>
+                        <div class="service-tech">Logo • Branding • Guidelines</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon gradient-icon"><i class="fas fa-bolt"></i></div>
+                        <h3>Performance</h3>
+                        <p>Lightning-fast optimization and seamless user experience</p>
+                        <div class="service-tech">SEO • Analytics • Speed</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section skills">
+            <div class="container">
+                <h2 class="section-title">Skills <span class="neon-text">Matrix</span></h2>
+                <div class="skills-showcase">
+                    <div class="skill-column">
+                        <h4 class="skill-category">Frontend</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">Tailwind</span>
+                            <span class="skill-tag">Three.js</span>
+                        </div>
+                    </div>
+                    <div class="skill-column">
+                        <h4 class="skill-category">Backend</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Django</span>
+                            <span class="skill-tag">Express</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">REST API</span>
+                        </div>
+                    </div>
+                    <div class="skill-column">
+                        <h4 class="skill-category">Tools</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">VS Code</span>
+                            <span class="skill-tag">AWS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section projects">
+            <div class="container">
+                <h2 class="section-title">Featured <span class="neon-text">Projects</span></h2>
+                <div class="project-filters">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="starred">⭐ Starred</button>
+                    <button class="filter-btn" data-filter="recent">📅 Recent</button>
+                </div>
+                <div class="projects-grid" id="projectsGrid">
+                    <div class="loading-animation" id="projectsLoading">
+                        <div class="loader"></div>
+                        <p>Loading projects from GitHub...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact">
+            <div class="container">
+                <h2 class="section-title">Get In <span class="neon-text">Touch</span></h2>
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4>Email</h4>
+                                <p><a href="mailto:vidhyanjha@gmail.com" style="color: inherit; text-decoration: none;">vidhyanjha@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fas fa-briefcase"></i></div>
+                            <div>
+                                <h4>Status</h4>
+                                <p>3rd Year B.E. Student</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <h4>GitHub</h4>
+                                <p><a href="https://github.com/FlamingSlayer" target="_blank" style="color: inherit; text-decoration: none;">@FlamingSlayer</a></p>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://github.com/FlamingSlayer" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/vidhyanjha" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/flaming_slayer_7/" target="_blank" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="mailto:vidhyanjha@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                    <form class="contact-form" name="contact" method="POST">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
+                        <button type="submit" class="btn btn-primary" data-ripple>Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Vidhyan Jha. All rights reserved. | Crafted with <span class="heart">❤</span> by Flaming</p>
+        </div>
+    </footer>
+
+    <!-- Floating Button -->
+    <button class="floating-btn" id="floatingBtn" data-ripple>
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

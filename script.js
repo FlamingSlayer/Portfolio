@@ -351,6 +351,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     const header = document.querySelector('.header');
     const floatingBtn = document.getElementById('floatingBtn');
     const contactForm = document.querySelector('.contact-form');
+    const letWorkBtn = document.getElementById('letWorkBtn');
+    const viewWorkBtn = document.getElementById('viewWorkBtn');
+
+    // ===== CTA BUTTONS =====
+    letWorkBtn?.addEventListener('click', () => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+            gsap.to(window, {
+                scrollTo: contactSection.offsetTop - 80,
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+        }
+    });
+
+    viewWorkBtn?.addEventListener('click', () => {
+        const projectsSection = document.getElementById('projects');
+        if (projectsSection) {
+            gsap.to(window, {
+                scrollTo: projectsSection.offsetTop - 80,
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+        }
+    });
 
     // ===== MOBILE MENU =====
     menuBtn?.addEventListener('click', () => {

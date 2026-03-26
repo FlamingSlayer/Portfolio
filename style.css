@@ -297,6 +297,10 @@ main {
     opacity: 0;
 }
 
+html[data-theme="light"] .hero-desc {
+    color: rgba(10, 10, 10, 0.6);
+}
+
 .cta-buttons {
     display: flex;
     gap: 1.5rem;
@@ -546,6 +550,10 @@ main {
     line-height: 1.6;
 }
 
+html[data-theme="light"] .about-card p {
+    color: rgba(10, 10, 10, 0.7);
+}
+
 /* Services Section */
 .services-grid {
     display: grid;
@@ -567,14 +575,22 @@ main {
 .service-card:nth-child(2) { animation-delay: 0.2s; }
 .service-card:nth-child(3) { animation-delay: 0.3s; }
 .service-card:nth-child(4) { animation-delay: 0.4s; }
-.service-card:nth-child(5) { animation-delay: 0.5s; }
-.service-card:nth-child(6) { animation-delay: 0.6s; }
 
 .service-card:hover {
     border-color: var(--accent);
     background: rgba(131, 56, 236, 0.2);
     transform: translateY(-10px);
     box-shadow: 0 0 20px rgba(131, 56, 236, 0.3);
+}
+
+html[data-theme="light"] .service-card {
+    background: rgba(124, 58, 237, 0.08);
+    border-color: rgba(124, 58, 237, 0.25);
+}
+
+html[data-theme="light"] .service-card:hover {
+    background: rgba(124, 58, 237, 0.15);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.25);
 }
 
 .gradient-icon {
@@ -591,6 +607,11 @@ main {
     box-shadow: 0 0 20px rgba(131, 56, 236, 0.5);
 }
 
+html[data-theme="light"] .gradient-icon {
+    color: white;
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
 .service-card h3 {
     font-size: 1.3rem;
     margin-bottom: 0.8rem;
@@ -600,6 +621,10 @@ main {
     color: rgba(224, 224, 224, 0.8);
     margin-bottom: 1rem;
     line-height: 1.6;
+}
+
+html[data-theme="light"] .service-card p {
+    color: rgba(10, 10, 10, 0.7);
 }
 
 .service-tech {
@@ -740,6 +765,16 @@ main {
     box-shadow: var(--glow-pink);
 }
 
+html[data-theme="light"] .project-card {
+    background: rgba(255, 0, 102, 0.08);
+    border-color: rgba(255, 0, 102, 0.25);
+}
+
+html[data-theme="light"] .project-card:hover {
+    background: rgba(255, 0, 102, 0.15);
+    box-shadow: 0 0 20px rgba(255, 0, 102, 0.25);
+}
+
 .project-header {
     display: flex;
     align-items: center;
@@ -768,6 +803,10 @@ main {
     margin-bottom: 1rem;
     line-height: 1.6;
     font-size: 0.95rem;
+}
+
+html[data-theme="light"] .project-desc {
+    color: rgba(10, 10, 10, 0.7);
 }
 
 .project-meta {
@@ -837,6 +876,10 @@ main {
     color: rgba(224, 224, 224, 0.7);
 }
 
+html[data-theme="light"] .info-card p {
+    color: rgba(10, 10, 10, 0.6);
+}
+
 .social-links {
     display: flex;
     gap: 1rem;
@@ -895,12 +938,21 @@ main {
     color: rgba(224, 224, 224, 0.5);
 }
 
+html[data-theme="light"] .contact-form input::placeholder,
+html[data-theme="light"] .contact-form textarea::placeholder {
+    color: rgba(10, 10, 10, 0.4);
+}
+
 /* Footer */
 .footer {
     padding: 3rem 0;
     border-top: 1px solid rgba(0, 240, 255, 0.1);
     text-align: center;
     color: rgba(224, 224, 224, 0.7);
+}
+
+html[data-theme="light"] .footer {
+    color: rgba(10, 10, 10, 0.6);
 }
 
 .heart {

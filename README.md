@@ -2,7 +2,7 @@
 
 A stunning, interactive portfolio showcasing modern web technologies with 3D graphics, smooth animations, and real-time GitHub integration.
 
-**[🌐 Live Demo](http://grand-tulumba-a2a6e7.netlify.app/) | [📧 Contact](https://t.me/FlamingSlayer_Bot) | [⭐ GitHub](https://github.com/FlamingSlayer)**
+**[🌐 Live Demo](https://flamingprotfolio.netlify.app/) | [📧 Contact](https://t.me/FlamingSlayer_Bot) | [⭐ GitHub](https://github.com/FlamingSlayer)**
 
 ![Build](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square)

@@ -2,7 +2,7 @@
 
 A stunning, interactive portfolio showcasing modern web technologies with 3D graphics, smooth animations, and real-time GitHub integration.
 
-**[🌐 Live Demo](http://grand-tulumba-a2a6e7.netlify.app/) | [📧 Contact](#contact) | [⭐ GitHub](https://github.com/FlamingSlayer)**
+**[🌐 Live Demo](http://grand-tulumba-a2a6e7.netlify.app/) | [📧 Contact](https://t.me/FlamingSlayer_Bot) | [⭐ GitHub](https://github.com/FlamingSlayer)**
 
 ![Build](https://img.shields.io/badge/build-passing-brightgreen?style=flat-square)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square)
@@ -143,28 +143,6 @@ Edit contact section in `index.html`:
 | Desktop | 1200px+ | Full layout |
 | Tablet | 768px - 1199px | Optimized grid |
 | Mobile | < 768px | Single column |
-
----
-
-## 🚢 Deployment
-
-### Deploy to Netlify
-1. Push code to GitHub
-2. Connect on [Netlify](https://netlify.com)
-3. Automatic deployment on every push
-4. Access at: `https://yourname.netlify.app`
-
-### Deploy to GitHub Pages
-1. Enable GitHub Pages in settings
-2. Set branch to `main`
-3. Access at: `https://YourUsername.github.io/Portfolio`
-
-### Deploy to Vercel
-```bash
-npm i -g vercel
-vercel
-# Follow prompts
-```
 
 ---
 

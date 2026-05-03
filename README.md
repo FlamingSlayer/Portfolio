@@ -191,7 +191,7 @@ This project is open source under the **MIT License**.
 - 🎓 3rd Year B.E. (Information Technology) Student
 - 💻 Full-Stack Developer
 - 🔗 **GitHub**: [@FlamingSlayer](https://github.com/FlamingSlayer)
-- 📧 **Email**: vidhyanjha@gmail.com
+- 📧 **Email**: vidhyanjha12345@gmail.com
 - 💼 **LinkedIn**: [Vidhyan Jha](https://www.linkedin.com/in/vidhyanjha)
 - 📸 **Instagram**: [@flaming_slayer_7](https://www.instagram.com/flaming_slayer_7/)
 
@@ -201,7 +201,7 @@ This project is open source under the **MIT License**.
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/FlamingSlayer/Portfolio/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/FlamingSlayer/Portfolio/discussions)
-- 📧 **Email**: vidhyanjha@gmail.com
+- 📧 **Email**: vidhyanjha12345@gmail.com
 
 ---
 

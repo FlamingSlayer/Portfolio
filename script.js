@@ -1,5 +1,3 @@
-/* ==================== ADVANCED FUTURISTIC PORTFOLIO ==================== */
-
 // ===== THREE.JS 3D SCENE =====
 let scene, camera, renderer, cube, particles;
 
@@ -147,7 +145,7 @@ function animate() {
         cube.rotation.z += 0.002;
     }
 
-    // Animate galaxy
+    // Animate galaxy (reduced complexity)
     scene.children.forEach(child => {
         if (child.userData.rotationX !== undefined) {
             child.rotation.x += child.userData.rotationX;
@@ -155,9 +153,8 @@ function animate() {
         }
     });
 
-    // Animate particles
+    // Animate particles (reduced complexity)
     if (particles) {
-        particles.rotation.x += 0.00005;
         particles.rotation.y += 0.0001;
     }
 
@@ -167,6 +164,58 @@ function animate() {
 // ===== GITHUB API INTEGRATION =====
 const GITHUB_USERNAME = 'FlamingSlayer';
 const GITHUB_API = 'https://api.github.com/users/FlamingSlayer/repos';
+
+function openProjectModal(repo) {
+    const projectModal = document.getElementById('projectModal');
+    const projectModalBody = document.getElementById('projectModalBody');
+    if (!projectModal || !projectModalBody || !repo) return;
+
+    const language = repo.language || 'Code';
+    const icon = getLanguageIcon(language);
+    const topics = repo.topics ? repo.topics.slice(0, 6) : [];
+    const updated = new Date(repo.updated_at).toLocaleDateString(undefined, {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric'
+    });
+
+    projectModalBody.innerHTML = `
+        <div class="project-modal-header-block">
+            <div class="project-modal-icon"><i class="${icon}"></i></div>
+            <div>
+                <div class="project-modal-kicker">Project details</div>
+                <h3 id="projectModalTitle">${repo.name}</h3>
+            </div>
+        </div>
+        <p class="project-modal-description">${repo.description || 'This repository does not include a description yet, but the code and metadata are available from GitHub.'}</p>
+        <div class="project-modal-meta">
+            <span class="meta-tag">${language}</span>
+            ${topics.map(topic => `<span class="meta-tag">${topic}</span>`).join('')}
+        </div>
+        <div class="project-modal-stats">
+            <div><strong>${repo.stargazers_count || 0}</strong><span>Stars</span></div>
+            <div><strong>${repo.forks_count || 0}</strong><span>Forks</span></div>
+            <div><strong>${repo.watchers_count || 0}</strong><span>Watchers</span></div>
+            <div><strong>${updated}</strong><span>Updated</span></div>
+        </div>
+        <div class="project-modal-actions">
+            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open GitHub</a>
+            ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Live Demo</a>` : ''}
+        </div>
+    `;
+
+    projectModal.classList.add('active');
+    projectModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+}
+
+function closeProjectModal() {
+    const projectModal = document.getElementById('projectModal');
+    if (!projectModal) return;
+    projectModal.classList.remove('active');
+    projectModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+}
 
 async function fetchGitHubProjects() {
     try {
@@ -184,31 +233,77 @@ async function fetchGitHubProjects() {
 
 function displayProjects(repos) {
     const projectsGrid = document.getElementById('projectsGrid');
-    const loadingDiv = document.getElementById('projectsLoading');
+    const featuredProject = document.getElementById('featuredProject');
     
-    if (loadingDiv) loadingDiv.remove();
-    
+    if (featuredProject && Array.isArray(repos) && repos.length) {
+        renderFeaturedProject(getFeaturedRepo(repos));
+    }
+
     projectsGrid.innerHTML = '';
 
-    repos.forEach((repo, index) => {
+    repos.forEach((repo) => {
         const projectCard = createProjectCard(repo);
         projectsGrid.appendChild(projectCard);
-        
-        // Staggered animation
-        setTimeout(() => {
-            gsap.from(projectCard, {
-                opacity: 0,
-                y: 20,
-                duration: 0.6,
-                ease: 'power2.out'
-            });
-        }, index * 50);
     });
+}
+
+function getFeaturedRepo(repos) {
+    return [...repos].sort((a, b) => {
+        const starDiff = (b.stargazers_count || 0) - (a.stargazers_count || 0);
+        if (starDiff !== 0) return starDiff;
+        return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+    })[0] || repos[0];
+}
+
+function renderFeaturedProject(repo) {
+    const featuredProject = document.getElementById('featuredProject');
+    if (!featuredProject || !repo) return;
+
+    const language = repo.language || 'Code';
+    const icon = getLanguageIcon(language);
+    const topics = repo.topics ? repo.topics.slice(0, 3) : [];
+    const updated = new Date(repo.updated_at).toLocaleDateString(undefined, {
+        month: 'short',
+        year: 'numeric'
+    });
+
+    featuredProject.innerHTML = `
+        <article class="featured-project-card">
+            <div class="featured-project-tag">Featured Project</div>
+            <div class="featured-project-content">
+                <div class="project-icon featured-icon"><i class="${icon}"></i></div>
+                <div class="featured-copy">
+                    <h3>${repo.name}</h3>
+                    <p>${repo.description || 'A polished project that shows the strongest parts of this portfolio.'}</p>
+                    <div class="project-meta featured-meta">
+                        <span class="meta-tag">${language}</span>
+                        ${topics.map(topic => `<span class="meta-tag">${topic}</span>`).join('')}
+                    </div>
+                    <div class="project-stats">
+                        <span><i class="fas fa-star"></i> ${repo.stargazers_count || 0}</span>
+                        <span><i class="fas fa-code-branch"></i> ${repo.forks_count || 0}</span>
+                        <span><i class="fas fa-calendar"></i> ${updated}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="featured-actions">
+                <button type="button" class="btn btn-primary btn-small" data-project-open="${repo.name}">View Details</button>
+                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small">GitHub</a>
+            </div>
+        </article>
+    `;
+
+    featuredProject.querySelector('[data-project-open]')?.addEventListener('click', () => {
+        openProjectModal(repo);
+    }, { passive: true });
 }
 
 function createProjectCard(repo) {
     const card = document.createElement('div');
     card.className = 'project-card';
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `Open details for ${repo.name}`);
     card.setAttribute('data-stars', repo.stargazers_count);
     card.setAttribute('data-date', new Date(repo.updated_at).getTime());
     
@@ -232,23 +327,32 @@ function createProjectCard(repo) {
             <span><i class="fas fa-code-branch"></i> ${repo.forks_count || 0}</span>
             <span><i class="fas fa-eye"></i> ${repo.watchers_count || 0}</span>
         </div>
+        <button type="button" class="project-details-link" data-project-open="${repo.name}">View details</button>
         <a href="${repo.html_url}" target="_blank" class="btn btn-small" data-ripple>View on GitHub →</a>
     `;
 
     card.addEventListener('mouseenter', function() {
-        gsap.to(this, {
-            y: -10,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
+        this.classList.add('hover');
     });
 
     card.addEventListener('mouseleave', function() {
-        gsap.to(this, {
-            y: 0,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
+        this.classList.remove('hover');
+    });
+
+    card.querySelector('[data-project-open]')?.addEventListener('click', () => {
+        openProjectModal(repo);
+    }, { passive: true });
+
+    card.addEventListener('click', (event) => {
+        if (event.target.closest('a') || event.target.closest('button[data-project-open]')) return;
+        openProjectModal(repo);
+    });
+
+    card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openProjectModal(repo);
+        }
     });
 
     return card;
@@ -276,24 +380,28 @@ function getLanguageIcon(language) {
 function showFallbackProjects() {
     // Show sample projects if GitHub API fails
     const projectsGrid = document.getElementById('projectsGrid');
-    projectsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #00f0ff;">Unable to load projects. Please visit <a href="https://github.com/FlamingSlayer" target="_blank" style="color: #00f0ff; text-decoration: underline;">GitHub</a></p>';
+    const featuredProject = document.getElementById('featuredProject');
+    if (featuredProject) {
+        featuredProject.innerHTML = '<div class="featured-project-card featured-fallback"><h3>Featured project coming soon</h3><p>GitHub could not be reached right now, so the portfolio is showing a fallback state.</p></div>';
+    }
+    projectsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #00f0ff;">Unable to load projects. Please visit <a href="https://github.com/FlamingSlayer" target="_blank" rel="noopener noreferrer" style="color: #00f0ff; text-decoration: underline;">GitHub</a></p>';
 }
 
 // ===== PROJECT FILTERING =====
 function setupProjectFilters() {
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            filterBtns.forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
 
             const filter = btn.getAttribute('data-filter');
-            let visibleCount = 0;
+            const projectCards = document.querySelectorAll('.project-card');
 
-            projectCards.forEach((card, index) => {
+            projectCards.forEach((card) => {
                 let show = false;
 
                 if (filter === 'all') {
@@ -308,31 +416,17 @@ function setupProjectFilters() {
                     show = (now - date) < thirtyDaysMs;
                 }
 
+                // Use CSS class instead of GSAP for better performance
                 if (show) {
-                    card.style.display = 'flex';
-                    visibleCount++;
-                    setTimeout(() => {
-                        gsap.from(card, {
-                            opacity: 0,
-                            y: 10,
-                            duration: 0.3,
-                            ease: 'power2.out'
-                        });
-                    }, 50);
+                    card.classList.remove('hidden');
                 } else {
-                    gsap.to(card, {
-                        opacity: 0,
-                        y: -10,
-                        duration: 0.2,
-                        ease: 'power2.in',
-                        onComplete: () => {
-                            card.style.display = 'none';
-                        }
-                    });
+                    card.classList.add('hidden');
                 }
             });
-        });
+        }, { passive: true });
     });
+
+    filterBtns.forEach(btn => btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false'));
 }
 
 // ===== MAIN INITIALIZATION =====
@@ -353,40 +447,53 @@ document.addEventListener('DOMContentLoaded', async () => {
     const contactForm = document.querySelector('.contact-form');
     const letWorkBtn = document.getElementById('letWorkBtn');
     const viewWorkBtn = document.getElementById('viewWorkBtn');
+    const resumeBtn = document.getElementById('resumeBtn');
+    const resumeNavBtn = document.getElementById('resumeNavBtn');
+    const resumeFile = 'Vidhyan.pdf';
+    const projectModal = document.getElementById('projectModal');
+    const projectModalClose = document.getElementById('projectModalClose');
+
+    projectModalClose?.addEventListener('click', closeProjectModal, { passive: true });
+    projectModal?.addEventListener('click', (event) => {
+        if (event.target && event.target.matches('[data-close-project-modal]')) {
+            closeProjectModal();
+        }
+    });
 
     // ===== CTA BUTTONS =====
     letWorkBtn?.addEventListener('click', () => {
         const contactSection = document.getElementById('contact');
         if (contactSection) {
-            gsap.to(window, {
-                scrollTo: contactSection.offsetTop - 80,
-                duration: 1,
-                ease: 'power2.inOut'
-            });
+            contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    });
+    }, { passive: true });
 
     viewWorkBtn?.addEventListener('click', () => {
         const projectsSection = document.getElementById('projects');
         if (projectsSection) {
-            gsap.to(window, {
-                scrollTo: projectsSection.offsetTop - 80,
-                duration: 1,
-                ease: 'power2.inOut'
-            });
+            projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    });
+    }, { passive: true });
+
+    resumeBtn?.addEventListener('click', () => {
+        window.location.href = resumeFile;
+    }, { passive: true });
+
+    resumeNavBtn?.addEventListener('click', () => {
+        mobileNav.classList.remove('active');
+        window.location.href = resumeFile;
+    }, { passive: true });
 
     // ===== MOBILE MENU =====
     menuBtn?.addEventListener('click', () => {
         mobileNav.classList.toggle('active');
-    });
+    }, { passive: true });
 
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             mobileNav.classList.remove('active');
             updateActiveNav(link);
-        });
+        }, { passive: true });
     });
 
     // ===== THEME TOGGLE =====
@@ -401,7 +508,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         html.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
         updateThemeIcon();
-    });
+    }, { passive: true });
 
     function updateThemeIcon() {
         const theme = html.getAttribute('data-theme');
@@ -417,7 +524,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             ticking = true;
             requestAnimationFrame(handleScroll);
         }
-    });
+    }, { passive: true });
 
     function handleScroll() {
         const scrollPos = window.scrollY;
@@ -473,47 +580,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             const element = document.querySelector(target);
             
             if (element) {
-                const offsetTop = element.offsetTop - 80;
-                gsap.to(window, {
-                    scrollTo: offsetTop,
-                    duration: 1,
-                    ease: 'power2.inOut'
-                });
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
 
     // ===== FLOATING BUTTON =====
     floatingBtn?.addEventListener('click', () => {
-        gsap.to(window, {
-            scrollTo: 0,
-            duration: 1,
-            ease: 'power2.inOut'
-        });
-    });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, { passive: true });
 
-    // ===== RIPPLE EFFECT =====
+    // ===== RIPPLE EFFECT (CSS-based for better performance) =====
     document.querySelectorAll('[data-ripple]').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-
-            ripple.style.position = 'absolute';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.background = 'rgba(255, 255, 255, 0.5)';
-            ripple.style.borderRadius = '50%';
-            ripple.style.pointerEvents = 'none';
-            ripple.style.transform = 'scale(0)';
-            ripple.style.animation = 'rippleEffect 0.6s ease-out';
-
-            this.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 600);
-        });
+        button.addEventListener('click', function() {
+            // Add and remove ripple class to trigger animation
+            this.classList.add('ripple-active');
+            setTimeout(() => {
+                this.classList.remove('ripple-active');
+            }, 600);
+        }, { passive: true });
     });
 
     // ===== INTERSECTION OBSERVER =====
@@ -557,9 +642,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        console.log('Form data:', { name, email, message });
-        showNotification('Message sent successfully! 🚀', 'success');
-        contactForm.reset();
+        showNotification('Sending your message...', 'success');
+        setTimeout(() => {
+            contactForm.submit();
+        }, 650);
     });
 
     function validateEmail(email) {
@@ -568,51 +654,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function showNotification(message, type) {
         const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: ${type === 'error' ? '#ff0066' : '#00f0ff'};
-            color: ${type === 'error' ? '#fff' : '#000'};
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            z-index: 2000;
-            box-shadow: 0 10px 40px 0 rgba(0, 240, 255, 0.3);
-        `;
+        notification.className = 'notification ' + (type === 'error' ? 'error' : 'success');
         notification.textContent = message;
         document.body.appendChild(notification);
 
-        gsap.from(notification, {
-            x: 400,
-            opacity: 0,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
+        // Use CSS animation instead of GSAP
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
 
         setTimeout(() => {
-            gsap.to(notification, {
-                x: 400,
-                opacity: 0,
-                duration: 0.3,
-                ease: 'power2.in',
-                onComplete: () => notification.remove()
-            });
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
         }, 3000);
     }
 
     // ===== KEYBOARD SHORTCUTS =====
     document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && projectModal?.classList.contains('active')) {
+            closeProjectModal();
+            return;
+        }
         if (e.key === 'Escape') {
-            gsap.to(window, {
-                scrollTo: 0,
-                duration: 0.5
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         if (e.key === 't' || e.key === 'T') {
             themeBtn?.click();
         }
-    });
+    }, { passive: true });
 
     // ===== ANIMATIONS STYLE =====
     const animationStyle = document.createElement('style');

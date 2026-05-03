@@ -44,6 +44,7 @@
         <a href="#services" class="nav-link">Services</a>
         <a href="#projects" class="nav-link">Projects</a>
         <a href="#contact" class="nav-link">Contact</a>
+        <button type="button" class="mobile-resume-btn" id="resumeNavBtn">Resume</button>
     </div>
 
     <!-- Main Content -->
@@ -62,6 +63,7 @@
                     <div class="cta-buttons">
                         <button class="btn btn-primary" id="letWorkBtn" data-ripple>Let's Work Together</button>
                         <button class="btn btn-secondary" id="viewWorkBtn" data-ripple>View My Work</button>
+                        <button class="btn btn-secondary" id="resumeBtn" data-ripple>View Resume</button>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -177,15 +179,56 @@
         <section id="projects" class="section projects">
             <div class="container">
                 <h2 class="section-title">Featured <span class="neon-text">Projects</span></h2>
+                <div class="featured-project-wrap">
+                    <div class="section-kicker">Spotlight</div>
+                    <div class="featured-project" id="featuredProject" aria-live="polite">
+                        <div class="featured-project-skeleton">
+                            <div class="skeleton-line skeleton-title"></div>
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line short"></div>
+                            <div class="skeleton-chip-row">
+                                <span class="skeleton-chip"></span>
+                                <span class="skeleton-chip"></span>
+                                <span class="skeleton-chip"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="project-filters">
                     <button class="filter-btn active" data-filter="all">All Projects</button>
                     <button class="filter-btn" data-filter="starred">⭐ Starred</button>
                     <button class="filter-btn" data-filter="recent">📅 Recent</button>
                 </div>
                 <div class="projects-grid" id="projectsGrid">
-                    <div class="loading-animation" id="projectsLoading">
-                        <div class="loader"></div>
-                        <p>Loading projects from GitHub...</p>
+                    <div class="project-skeleton-card">
+                        <div class="skeleton-icon"></div>
+                        <div class="skeleton-line skeleton-title"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-chip-row">
+                            <span class="skeleton-chip"></span>
+                            <span class="skeleton-chip"></span>
+                        </div>
+                    </div>
+                    <div class="project-skeleton-card">
+                        <div class="skeleton-icon"></div>
+                        <div class="skeleton-line skeleton-title"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-chip-row">
+                            <span class="skeleton-chip"></span>
+                            <span class="skeleton-chip"></span>
+                        </div>
+                    </div>
+                    <div class="project-skeleton-card">
+                        <div class="skeleton-icon"></div>
+                        <div class="skeleton-line skeleton-title"></div>
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line short"></div>
+                        <div class="skeleton-chip-row">
+                            <span class="skeleton-chip"></span>
+               2345             <span class="skeleton-chip"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,7 +244,7 @@
                             <div class="info-icon"><i class="fas fa-envelope"></i></div>
                             <div>
                                 <h4>Email</h4>
-                                <p><a href="mailto:vidhyanjha@gmail.com" style="color: inherit; text-decoration: none;">vidhyanjha@gmail.com</a></p>
+                                <p><a href="mailto:vidhyanjha12345@gmail.com" style="color: inherit; text-decoration: none;">vidhyanjha12345@gmail.com</a></p>
                             </div>
                         </div>
                         <div class="info-card">
@@ -222,10 +265,12 @@
                             <a href="https://github.com/FlamingSlayer" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
                             <a href="https://www.linkedin.com/in/vidhyanjha" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="https://www.instagram.com/flaming_slayer_7/" target="_blank" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="mailto:vidhyanjha@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+                            <a href="mailto:vidhyanjha12345@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
-                    <form class="contact-form" name="contact" method="POST">
+                    <form class="contact-form" name="contact" method="POST" action="https://formsubmit.co/vidhyanjha12345@gmail.com">
+                        <input type="hidden" name="_subject" value="New portfolio message">
+                        <input type="hidden" name="_captcha" value="false">
                         <input type="text" name="name" placeholder="Your Name" required>
                         <input type="email" name="email" placeholder="Your Email" required>
                         <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
@@ -242,6 +287,15 @@
             <p>&copy; 2026 Vidhyan Jha. All rights reserved. | Crafted with <span class="heart">❤</span> by Flaming</p>
         </div>
     </footer>
+
+    <!-- Project Detail Modal -->
+    <div class="project-modal" id="projectModal" aria-hidden="true">
+        <div class="project-modal-backdrop" data-close-project-modal></div>
+        <div class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+            <button type="button" class="project-modal-close" id="projectModalClose" aria-label="Close project details">&times;</button>
+            <div class="project-modal-body" id="projectModalBody"></div>
+        </div>
+    </div>
 
     <!-- Floating Button -->
     <button class="floating-btn" id="floatingBtn" data-ripple>

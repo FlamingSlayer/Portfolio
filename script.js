@@ -33,7 +33,7 @@ function initThreeJS() {
 
     // Create Cosmic Star/Galaxy Effect
     createGalaxy();
-    
+
     // Create central glowing sphere
     const sphereGeometry = new THREE.IcosahedronGeometry(0.7, 4);
     const sphereMaterial = new THREE.MeshPhongMaterial({
@@ -68,16 +68,16 @@ function createGalaxy() {
     const starCount = 1000;
     const positions = new Float32Array(starCount * 3);
     const colors = new Float32Array(starCount * 3);
-    
+
     for (let i = 0; i < starCount * 3; i += 3) {
         const angle = Math.random() * Math.PI * 2;
         const radius = Math.random() * 20;
         const height = (Math.random() - 0.5) * 5;
-        
+
         positions[i] = Math.cos(angle) * radius;
         positions[i + 1] = height;
         positions[i + 2] = Math.sin(angle) * radius;
-        
+
         // Color gradient: blue to cyan to purple
         const colorChoice = Math.random();
         if (colorChoice < 0.33) {
@@ -88,11 +88,11 @@ function createGalaxy() {
             colors[i] = 1.0; colors[i + 1] = 0.3; colors[i + 2] = 0.8; // Pink-Purple
         }
     }
-    
+
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    
+
     const material = new THREE.PointsMaterial({
         size: 0.15,
         sizeAttenuation: true,
@@ -100,10 +100,10 @@ function createGalaxy() {
         opacity: 0.8,
         vertexColors: true
     });
-    
+
     const stars = new THREE.Points(geometry, material);
     scene.add(stars);
-    
+
     // Rotate galaxy slowly
     stars.rotation.x = Math.random() * Math.PI;
     stars.userData.rotationX = 0.0001;
@@ -221,7 +221,7 @@ async function fetchGitHubProjects() {
     try {
         const response = await fetch(GITHUB_API + '?sort=stars&per_page=12');
         const repos = await response.json();
-        
+
         if (Array.isArray(repos)) {
             displayProjects(repos);
         }
@@ -234,7 +234,7 @@ async function fetchGitHubProjects() {
 function displayProjects(repos) {
     const projectsGrid = document.getElementById('projectsGrid');
     const featuredProject = document.getElementById('featuredProject');
-    
+
     if (featuredProject && Array.isArray(repos) && repos.length) {
         renderFeaturedProject(getFeaturedRepo(repos));
     }
@@ -306,7 +306,7 @@ function createProjectCard(repo) {
     card.setAttribute('aria-label', `Open details for ${repo.name}`);
     card.setAttribute('data-stars', repo.stargazers_count);
     card.setAttribute('data-date', new Date(repo.updated_at).getTime());
-    
+
     const language = repo.language || 'Code';
     const icon = getLanguageIcon(language);
     const stars = repo.stargazers_count || 0;
@@ -331,11 +331,11 @@ function createProjectCard(repo) {
         <a href="${repo.html_url}" target="_blank" class="btn btn-small" data-ripple>View on GitHub →</a>
     `;
 
-    card.addEventListener('mouseenter', function() {
+    card.addEventListener('mouseenter', function () {
         this.classList.add('hover');
     });
 
-    card.addEventListener('mouseleave', function() {
+    card.addEventListener('mouseleave', function () {
         this.classList.remove('hover');
     });
 
@@ -476,12 +476,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, { passive: true });
 
     resumeBtn?.addEventListener('click', () => {
-        window.location.href = resumeFile;
+        window.open(resumeFile, '_blank');
     }, { passive: true });
 
     resumeNavBtn?.addEventListener('click', () => {
         mobileNav.classList.remove('active');
-        window.location.href = resumeFile;
+        window.open(resumeFile, '_blank');
     }, { passive: true });
 
     // ===== MOBILE MENU =====
@@ -512,8 +512,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function updateThemeIcon() {
         const theme = html.getAttribute('data-theme');
-        themeBtn.innerHTML = theme === 'dark' 
-            ? '<i class="fas fa-sun"></i>' 
+        themeBtn.innerHTML = theme === 'dark'
+            ? '<i class="fas fa-sun"></i>'
             : '<i class="fas fa-moon"></i>';
     }
 
@@ -578,7 +578,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             e.preventDefault();
             const target = link.getAttribute('href');
             const element = document.querySelector(target);
-            
+
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ===== RIPPLE EFFECT (CSS-based for better performance) =====
     document.querySelectorAll('[data-ripple]').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             // Add and remove ripple class to trigger animation
             this.classList.add('ripple-active');
             setTimeout(() => {
@@ -617,7 +617,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.about-card, .service-card, .skill-column').forEach(el => {
+    document.querySelectorAll('.about-card, .service-card, .skill-column, .experience-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         observer.observe(el);
@@ -758,9 +758,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 let ScrollToPlugin = gsap.plugins.scrollTo;
 if (!ScrollToPlugin) {
     // Fallback for basic scroll
-    window.scrollTo = (function() {
+    window.scrollTo = (function () {
         const originalScrollTo = window.scrollTo;
-        return function(options) {
+        return function (options) {
             if (typeof options === 'object' && options.behavior === 'smooth') {
                 document.documentElement.scrollTop = options.top || 0;
             } else {
